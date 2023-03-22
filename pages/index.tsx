@@ -5,6 +5,8 @@ import Layout from "../components/Layout";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
+import styles from "./Home.module.css";
+
 export async function getServerSideProps(context) {
   try {
     await clientPromise;
@@ -32,6 +34,7 @@ export default function Home({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
+  console.log(session);
 
   return (
     <div className="container">
@@ -41,35 +44,25 @@ export default function Home({
       </Head>
 
       <Layout>
-        <main>
-          {session ? (
-            <div>
-              <h1>
-                Welcome to the website {session.user?.name}. Glad you are back.
-              </h1>
-              <img src={session.user?.image} alt="" />
-              <p>checkout </p>
+        {session ? (
+          <div>
+            <h1>
+              Welcome to the website {session.user?.name}. Glad you are back.
+            </h1>
+
+            <p>checkout </p>
+            <Link href={"/workouts"}>Workouts</Link>
+          </div>
+        ) : (
+          <div>
+            <h1>Hello. Please sign in</h1>
+            <p>
+              checkout
               <Link href={"/workouts"}>Workouts</Link>
-            </div>
-          ) : (
-            <div>
-              <h1>Hello. Please sign in</h1>
-              <p>checkout </p>
-              <Link href={"/workouts"}>Workouts</Link>
-            </div>
-          )}
-        </main>
+            </p>
+          </div>
+        )}
       </Layout>
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
     </div>
   );
 }

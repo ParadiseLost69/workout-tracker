@@ -1,7 +1,7 @@
 import React from "react";
 import clientPromise from "../../lib/mongodb";
 import Layout from "../../components/Layout";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
 
 interface props {
@@ -9,6 +9,7 @@ interface props {
 }
 
 export default function Workouts({ workouts }: props) {
+  console.log(useSession());
   const { data: session } = useSession();
 
   if (!session) {
@@ -28,12 +29,11 @@ export default function Workouts({ workouts }: props) {
   return (
     <Layout>
       <h1>Workouts</h1>
-      {workouts.map((item) => {
-        return item.workout.map((ex) => {
+      {workouts.map((item: any) => {
+        return item.workout.map((ex: any) => {
           // CHANGE THIS KEY
           return (
             <div key={Math.random()}>
-              {" "}
               <h3>{ex.name}</h3> <p>Reps: {ex.reps}</p>
               <p>Sets: {ex.sets}</p>
             </div>
@@ -44,11 +44,16 @@ export default function Workouts({ workouts }: props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  const userEmail = session?.user?.email;
   try {
     const client = await clientPromise;
     const db = client.db("workout-tracker");
-    const workouts = await db.collection("workouts").find({}).toArray();
+    const workouts = await db
+      .collection("workouts")
+      .find({ email: userEmail })
+      .toArray();
 
     return {
       props: { workouts: JSON.parse(JSON.stringify(workouts)) },

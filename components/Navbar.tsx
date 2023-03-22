@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
-  const { data: session } = useSession();
-  console.log(session);
+  console.log(useSession());
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  const userFirstName = session?.user?.name.split(" ")[0];
+
   return (
     <div className={styles.navbar}>
       <nav>
@@ -37,6 +44,12 @@ export default function Navbar() {
           )}
         </ul>
       </nav>
+      {session && (
+        <div className={styles.user}>
+          <p>Welcome back, {userFirstName}!</p>
+          <img src={session.user?.image} alt="" />
+        </div>
+      )}
     </div>
   );
 }

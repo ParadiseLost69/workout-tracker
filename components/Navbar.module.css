@@ -22,3 +22,18 @@
 .navigation li:hover {
   cursor: pointer;
 }
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+.user p {
+  margin-inline: 1rem;
+}
