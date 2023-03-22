@@ -1,7 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-export default function Layout({ children }) {
+interface props {
+  children: any;
+}
+
+export default function Layout({ children }: props) {
   return (
     <>
       <Navbar />

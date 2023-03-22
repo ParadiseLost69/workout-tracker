@@ -1,11 +1,32 @@
 import React from "react";
 import clientPromise from "../../lib/mongodb";
+import Layout from "../../components/Layout";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
-export default function Workouts({ workouts }) {
-  console.log(workouts);
+interface props {
+  workouts: any;
+}
+
+export default function Workouts({ workouts }: props) {
+  const { data: session } = useSession();
+
+  if (!session) {
+    return (
+      <Layout>
+        <h1>You don't have access to this!</h1>
+        <h2>
+          Please
+          <span>
+            <Link href={"/api/auth/signin"}>Login</Link>
+          </span>
+        </h2>
+      </Layout>
+    );
+  }
 
   return (
-    <div>
+    <Layout>
       <h1>Workouts</h1>
       {workouts.map((item) => {
         return item.workout.map((ex) => {
@@ -19,7 +40,7 @@ export default function Workouts({ workouts }) {
           );
         });
       })}
-    </div>
+    </Layout>
   );
 }
 
