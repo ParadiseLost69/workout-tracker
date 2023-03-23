@@ -25,14 +25,10 @@ export default async (req, res) => {
       const db = client.db("workout-tracker");
 
       const workout = await db.collection("workouts").insertOne({
-        workout: [
-          {
-            name: req.body.name,
-            reps: req.body.reps,
-            sets: req.body.sets,
-          },
-        ],
+        name: req.body.name,
         email: req.body.email,
+        date: new Date(),
+        workout: JSON.parse(req.body.workout),
       });
 
       //redirects to workouts page

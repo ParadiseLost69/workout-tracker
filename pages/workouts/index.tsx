@@ -9,7 +9,6 @@ interface props {
 }
 
 export default function Workouts({ workouts }: props) {
-  console.log(useSession());
   const { data: session } = useSession();
 
   if (!session) {
