@@ -29,6 +29,7 @@ export default function Workouts({ workouts }: props) {
   return (
     <Layout>
       <h1>Workouts</h1>
+      <Link href="/workouts/create">Create new workout</Link>
       {workouts.map((item: any) => {
         return item.workout.map((ex: any) => {
           // CHANGE THIS KEY
