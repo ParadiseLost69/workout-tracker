@@ -13,17 +13,18 @@ export default function Navbar() {
   const userFirstName = session?.user?.name.split(" ")[0];
 
   return (
-    <div className={styles.navbar}>
+    <div className="text-lg flex flex-row justify-between w-screen items-center place-self-center">
       <nav>
-        <ul className={styles.navigation}>
-          <li>
+        <ul className="flex">
+          <li className="mx-2">
             <Link href={"/"}>Home</Link>
           </li>
-          <li>
+          <li className="mx-2">
             <Link href={"/workouts"}>Workouts</Link>
           </li>
           {!session ? (
             <li
+              className="mx-2 hover:cursor-pointer"
               onClick={() => {
                 signIn();
               }}
@@ -33,6 +34,7 @@ export default function Navbar() {
           ) : (
             <Link href={"/api/auth/signout"}>
               <li
+                className="mx-2"
                 onClick={() => {
                   signOut();
                 }}
@@ -44,9 +46,15 @@ export default function Navbar() {
         </ul>
       </nav>
       {session && (
-        <div className={styles.user}>
-          <p>Welcome back, {userFirstName}!</p>
-          <img src={session.user?.image} alt="" />
+        <div className="flex justify-center items-center">
+          <p className="m-2 hidden sm:block text-lg">
+            Welcome back, {userFirstName}!
+          </p>
+          <img
+            className="m-2 h-10 w-10 rounded-full"
+            src={session.user?.image}
+            alt="rounded avatar"
+          />
         </div>
       )}
     </div>

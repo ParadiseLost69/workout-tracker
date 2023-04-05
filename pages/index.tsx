@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import styles from "./Home.module.css";
+import Button from "../components/UI/Button";
 
 export async function getServerSideProps(context) {
   try {
@@ -46,12 +47,12 @@ export default function Home({
       <Layout>
         {session ? (
           <div>
-            <h1>
-              Welcome to the website {session.user?.name}. Glad you are back.
-            </h1>
-
-            <p>checkout </p>
-            <Link href={"/workouts"}>Workouts</Link>
+            <h2 className="mb-4 mt-2 text-4xl">
+              Hi {session.user?.name}! Glad you are back 😊
+            </h2>
+            <Link href={"/workouts"}>
+              <Button>Workouts</Button>
+            </Link>
           </div>
         ) : (
           <div>

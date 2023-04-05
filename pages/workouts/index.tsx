@@ -3,6 +3,7 @@ import clientPromise from "../../lib/mongodb";
 import Layout from "../../components/Layout";
 import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
+import Button from "../../components/UI/Button";
 
 interface props {
   workouts: any;
@@ -27,13 +28,16 @@ export default function Workouts({ workouts }: props) {
 
   return (
     <Layout>
-      <h1>Workouts</h1>
-      <Link href="/workouts/create">Create new workout</Link>
+      <h1 className="text-4xl my-2">Workouts</h1>
+      <Link href="/workouts/create">
+        <Button>Create new workout</Button>
+      </Link>
+
       {workouts.map((item: any) => {
         return item.workout.map((ex: any) => {
           // CHANGE THIS KEY
           return (
-            <div key={Math.random()}>
+            <div key={Math.random()} className="my-2">
               <h3>{ex.name}</h3> <p>Reps: {ex.reps}</p>
               <p>Sets: {ex.sets}</p>
             </div>
