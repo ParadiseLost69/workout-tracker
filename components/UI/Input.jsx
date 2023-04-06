@@ -12,12 +12,13 @@ export default function Input({
   minLength,
   max,
   min,
+  mb = "mb-0",
 }) {
   return (
     <div className="flex flex-col w-80 my-2">
       <label className="text-xl mb-2">{label}</label>
       <input
-        className=" px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+        className={`px-4 py-3 ${mb} text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent`}
         type={type}
         placeholder={placeholder}
         id={id}

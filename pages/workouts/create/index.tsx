@@ -95,6 +95,7 @@ export default function index(): JSX.Element {
                 onChange={(e: any) => handleChange(e, ind)}
                 min={0}
                 max={1000}
+                mb="mb-10"
               />
 
               {/* <input
@@ -123,8 +124,7 @@ export default function index(): JSX.Element {
         <Button type="submit">Submit</Button>
         {/* <button type="button" onClick={handleAddExercise}>
           Add exercise
-        </button>
-        <button type="submit">Submit</button> */}
+        </button> */}
       </form>
     </Layout>
   );
