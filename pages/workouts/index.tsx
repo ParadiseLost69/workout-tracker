@@ -4,6 +4,7 @@ import Layout from "../../components/Layout";
 import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
 import Button from "../../components/UI/Button";
+import { format } from "date-fns";
 
 interface props {
   workouts: any;
@@ -34,15 +35,25 @@ export default function Workouts({ workouts }: props) {
       </Link>
 
       {workouts.map((item: any) => {
-        return item.workout.map((ex: any) => {
-          // CHANGE THIS KEY
-          return (
-            <div key={Math.random()} className="my-2">
-              <h3>{ex.name}</h3> <p>Reps: {ex.reps}</p>
-              <p>Sets: {ex.sets}</p>
-            </div>
-          );
-        });
+        //show date
+        return (
+          <div key={Math.random()} className="my-2 border-b-4">
+            <h2 className="text-xl font-bold">
+              {/* Date is in format like Tuesday, January 1, 2021 */}
+              {format(Date.parse(item.date), "EEEE, MMMM d, yyyy")}
+            </h2>
+            {item.workout.map((ex: any) => {
+              // CHANGE THIS KEY
+              return (
+                <div key={Math.random()} className="my-2">
+                  <h3 className="text-lg text-blue-900 font-bold">{ex.name}</h3>{" "}
+                  <p>Reps: {ex.reps}</p>
+                  <p>Sets: {ex.sets}</p>
+                </div>
+              );
+            })}
+          </div>
+        );
       })}
     </Layout>
   );
@@ -57,6 +68,7 @@ export async function getServerSideProps(context: any) {
     const workouts = await db
       .collection("workouts")
       .find({ email: userEmail })
+      .sort({ date: -1 })
       .toArray();
 
     return {

@@ -46,7 +46,7 @@ export default function index(): JSX.Element {
           return (
             <div key={ind}>
               <Input
-                label={"Excercise Name"}
+                label={`Exercise ${ind + 1}`}
                 type="text"
                 value={workout.name}
                 id={"name"}

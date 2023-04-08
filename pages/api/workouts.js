@@ -9,7 +9,8 @@ export default async (req, res) => {
       const workouts = await db
         .collection("workouts")
         .find({})
-        .limit(10)
+        //sorts newest date first
+        .sort({ date: -1 })
         .toArray();
 
       res.json(workouts);
