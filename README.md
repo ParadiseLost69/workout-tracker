@@ -1,6 +1,6 @@
 # Workout Tracker
 
-### An application to track workouts, record which parts of the body have been hit, and recommend workouts based on that.
+### An application that tracks workouts. This app will track the workout, date, and excercises completed. It will then identify the body parts that have been exercised, recommend healing times, and future workouts.
 
 <div align="center">
 <img src="./public/ReadmeScreen.png" height="400">
