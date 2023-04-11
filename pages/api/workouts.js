@@ -39,3 +39,19 @@ export default async (req, res) => {
     }
   }
 };
+
+//Added by copilot
+if (req.method === "DELETE") {
+  try {
+    const client = await clientPromise;
+    const db = client.db("workout-tracker");
+
+    const workout = await db.collection("workouts").deleteOne({
+      _id: new ObjectId(req.body.id),
+    });
+
+    res.json(workout);
+  } catch (e) {
+    console.error(e);
+  }
+}

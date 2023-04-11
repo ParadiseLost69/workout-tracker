@@ -8,25 +8,31 @@ import { useSession } from "next-auth/react";
 
 interface Workout {
   name: string;
-  reps: number;
-  sets: number;
-  time?: number;
+  reps: number | undefined | null;
+  sets: number | undefined | null;
+  time?: number | undefined | null;
 }
 
 export default function index(): JSX.Element {
   //creates a form that can update workouts and add new objects into workout state
+  // create state for workouts with name, optional time, reps and sets
+
   const [workouts, setWorkouts] = useState<Workout[]>([
-    { name: "", reps: 0, sets: 0 },
+    { name: "", reps: undefined, sets: undefined, time: undefined },
   ]);
 
   function handleAddExercise() {
-    setWorkouts([...workouts, { name: "", reps: 0, sets: 0 }]);
+    setWorkouts([
+      ...workouts,
+      { name: "", reps: undefined, sets: undefined, time: undefined },
+    ]);
   }
 
   function handleChange(e, ind) {
     const { name, value } = e.target;
     const updatedWorkouts = [...workouts];
     updatedWorkouts[ind][name] = value;
+
     setWorkouts(updatedWorkouts);
   }
   console.log(workouts);
@@ -69,7 +75,7 @@ export default function index(): JSX.Element {
                 value={workout.reps}
                 id={"reps"}
                 name="reps"
-                placeholder="Reps"
+                placeholder="e.g. 10"
                 onChange={(e: any) => handleChange(e, ind)}
                 min={0}
                 max={1000}
@@ -80,18 +86,18 @@ export default function index(): JSX.Element {
                 value={workout.sets}
                 id={"sets"}
                 name="sets"
-                placeholder="Sets"
+                placeholder="e.g. 3"
                 onChange={(e: any) => handleChange(e, ind)}
                 min={0}
                 max={1000}
               />
               <Input
-                label={"Time"}
+                label={"Time (seconds)"}
                 type="number"
                 value={workout.time}
                 id={"time"}
                 name="time"
-                placeholder="Time"
+                placeholder="e.g. 30"
                 onChange={(e: any) => handleChange(e, ind)}
                 min={0}
                 max={1000}

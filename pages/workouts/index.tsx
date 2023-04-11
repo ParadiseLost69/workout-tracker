@@ -47,8 +47,9 @@ export default function Workouts({ workouts }: props) {
               return (
                 <div key={Math.random()} className="my-2">
                   <h3 className="text-lg text-blue-900 font-bold">{ex.name}</h3>{" "}
-                  <p>Reps: {ex.reps}</p>
-                  <p>Sets: {ex.sets}</p>
+                  {ex.reps && <p>Reps: {ex.reps}</p>}
+                  {ex.sets && <p>Sets: {ex.sets}</p>}
+                  {ex.time && <p>Time: {ex.time} seconds</p>}
                 </div>
               );
             })}
