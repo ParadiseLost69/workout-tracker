@@ -40,13 +40,20 @@ export default function Workouts({ workouts }: props) {
           <div key={Math.random()} className="my-2 border-b-4">
             <h2 className="text-xl font-bold">
               {/* Date is in format like Tuesday, January 1, 2021 */}
-              {format(Date.parse(item.date), "EEEE, MMMM d, yyyy")}
+              {item.workoutName && item.workoutName}
             </h2>
+            <h3 className="text-lg text-gray-400">
+              {" "}
+              {format(Date.parse(item.date), "EEEE, MMMM d, yyyy")}
+            </h3>
             {item.workout.map((ex: any) => {
               // CHANGE THIS KEY
               return (
                 <div key={Math.random()} className="my-2">
-                  <h3 className="text-lg text-blue-900 font-bold">{ex.name}</h3>{" "}
+                  <h3 className="text-lg text-blue-900 font-bold">
+                    {ex.weight && ex.weight + " " + "lbs" + " "}
+                    {ex.name}
+                  </h3>{" "}
                   {ex.reps && <p>Reps: {ex.reps}</p>}
                   {ex.sets && <p>Sets: {ex.sets}</p>}
                   {ex.time && <p>Time: {ex.time} seconds</p>}

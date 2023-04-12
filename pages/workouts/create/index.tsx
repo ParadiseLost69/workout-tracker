@@ -11,20 +11,33 @@ interface Workout {
   reps: number | undefined | null;
   sets: number | undefined | null;
   time?: number | undefined | null;
+  weight?: number | undefined | null;
 }
 
 export default function index(): JSX.Element {
   //creates a form that can update workouts and add new objects into workout state
   // create state for workouts with name, optional time, reps and sets
-
+  const [workoutName, setWorkoutName] = useState<string>("");
   const [workouts, setWorkouts] = useState<Workout[]>([
-    { name: "", reps: undefined, sets: undefined, time: undefined },
+    {
+      name: "",
+      reps: undefined,
+      sets: undefined,
+      time: undefined,
+      weight: undefined,
+    },
   ]);
 
   function handleAddExercise() {
     setWorkouts([
       ...workouts,
-      { name: "", reps: undefined, sets: undefined, time: undefined },
+      {
+        name: "",
+        reps: undefined,
+        sets: undefined,
+        time: undefined,
+        weight: undefined,
+      },
     ]);
   }
 
@@ -35,7 +48,9 @@ export default function index(): JSX.Element {
 
     setWorkouts(updatedWorkouts);
   }
-  console.log(workouts);
+  function handleworkoutNameChange(e) {
+    setWorkoutName(e.target.value);
+  }
 
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
@@ -48,6 +63,17 @@ export default function index(): JSX.Element {
       </Link>
 
       <form method="POST" action="/api/workouts">
+        <Input
+          label="Workout Name"
+          type="text"
+          name="workoutName"
+          id="workoutName"
+          placeholder="Eg. Chest Day"
+          onChange={handleworkoutNameChange}
+          value={workoutName}
+        />
+        <br />
+
         {workouts.map((workout, ind) => {
           return (
             <div key={ind}>
@@ -68,6 +94,15 @@ export default function index(): JSX.Element {
                 name="name"
                 id="name"
               /> */}
+              <Input
+                label={"Weight (lbs)"}
+                type="number"
+                id="weight"
+                name="weight"
+                value={workout.weight}
+                placeholder="e.g. 10"
+                onChange={(e: any) => handleChange(e, ind)}
+              />
 
               <Input
                 label={"Reps"}
@@ -80,6 +115,7 @@ export default function index(): JSX.Element {
                 min={0}
                 max={1000}
               />
+
               <Input
                 label={"Sets"}
                 type="number"

@@ -27,6 +27,7 @@ export default async (req, res) => {
 
       const workout = await db.collection("workouts").insertOne({
         name: req.body.name,
+        workoutName: req.body.workoutName,
         email: req.body.email,
         date: new Date(),
         workout: JSON.parse(req.body.workout),
@@ -41,17 +42,17 @@ export default async (req, res) => {
 };
 
 //Added by copilot
-if (req.method === "DELETE") {
-  try {
-    const client = await clientPromise;
-    const db = client.db("workout-tracker");
+// if (req.method === "DELETE") {
+//   try {
+//     const client = await clientPromise;
+//     const db = client.db("workout-tracker");
 
-    const workout = await db.collection("workouts").deleteOne({
-      _id: new ObjectId(req.body.id),
-    });
+//     const workout = await db.collection("workouts").deleteOne({
+//       _id: new ObjectId(req.body.id),
+//     });
 
-    res.json(workout);
-  } catch (e) {
-    console.error(e);
-  }
-}
+//     res.json(workout);
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
