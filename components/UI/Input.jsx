@@ -16,7 +16,9 @@ export default function Input({
 }) {
   return (
     <div className="flex flex-col w-80 my-2">
-      <label className="text-xl mb-2">{label}</label>
+      <label className="text-xl mb-2" htmlFor={id}>
+        {label}
+      </label>
       <input
         className={`px-4 py-3 ${mb} text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent`}
         type={type}

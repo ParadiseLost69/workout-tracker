@@ -62,21 +62,23 @@ export default function index(): JSX.Element {
         <Button>Back to workouts</Button>
       </Link>
 
-      <form method="POST" action="/api/workouts">
-        <Input
-          label="Workout Name"
-          type="text"
-          name="workoutName"
-          id="workoutName"
-          placeholder="Eg. Chest Day"
-          onChange={handleworkoutNameChange}
-          value={workoutName}
-        />
+      <form method="POST" action="/api/workouts" className="lg:flex">
+        <div className="lg:mx-4">
+          <Input
+            label="Workout Name"
+            type="text"
+            name="workoutName"
+            id="workoutName"
+            placeholder="Eg. Chest Day"
+            onChange={handleworkoutNameChange}
+            value={workoutName}
+          />
+        </div>
         <br />
 
         {workouts.map((workout, ind) => {
           return (
-            <div key={ind}>
+            <div key={ind} className="lg:mx-4">
               <Input
                 label={`Exercise ${ind + 1}`}
                 type="text"
@@ -160,10 +162,11 @@ export default function index(): JSX.Element {
         <input type="hidden" value={userEmail} name="email" />
         <input type="hidden" value={JSON.stringify(workouts)} name="workout" />
         {/* Buttons that add excercise and submit */}
+        <div className="mb-4 my-4">
+          <Button onClick={handleAddExercise}>Add exercise</Button>
 
-        <Button onClick={handleAddExercise}>Add exercise</Button>
-
-        <Button type="submit">Submit</Button>
+          <Button type="submit">Submit</Button>
+        </div>
         {/* <button type="button" onClick={handleAddExercise}>
           Add exercise
         </button> */}

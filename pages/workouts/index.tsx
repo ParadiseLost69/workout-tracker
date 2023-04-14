@@ -31,7 +31,7 @@ export default function Workouts({ workouts }: props) {
     <Layout>
       <h1 className="text-4xl my-2">Workouts</h1>
       <Link href="/workouts/create">
-        <Button>Create new workout</Button>
+        <Button>Add Workout</Button>
       </Link>
 
       {workouts.map((item: any) => {
