@@ -29,7 +29,7 @@ export default function Workouts({ workouts }: props) {
 
   return (
     <Layout>
-      <h1 className="text-4xl my-2">Workouts</h1>
+      <h1 className="text-4xl my-2 mx-1">Workouts</h1>
       <Link href="/workouts/create">
         <Button>Add Workout</Button>
       </Link>
@@ -37,7 +37,7 @@ export default function Workouts({ workouts }: props) {
       {workouts.map((item: any) => {
         //show date
         return (
-          <div key={Math.random()} className="my-2 border-b-4">
+          <div key={Math.random()} className="my-2 border-b-4 mx-1">
             <h2 className="text-xl font-bold">
               {/* Date is in format like Tuesday, January 1, 2021 */}
               {item.workoutName && item.workoutName}

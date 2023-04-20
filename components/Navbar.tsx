@@ -13,7 +13,7 @@ export default function Navbar() {
   const userFirstName = session?.user?.name.split(" ")[0];
 
   return (
-    <div className="text-lg flex flex-row justify-between w-screen items-center place-self-center">
+    <div className="text-lg flex flex-row justify-between w-screen items-center place-self-center px-4">
       <nav>
         <ul className="flex">
           <li className="mx-2">

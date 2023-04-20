@@ -30,7 +30,6 @@ export default function index(): JSX.Element {
 
   function handleAddExercise() {
     setWorkouts([
-      ...workouts,
       {
         name: "",
         reps: undefined,
@@ -38,7 +37,14 @@ export default function index(): JSX.Element {
         time: undefined,
         weight: undefined,
       },
+      ...workouts,
     ]);
+  }
+
+  function handleRemoveExercise(ind: number) {
+    const updatedWorkouts = [...workouts];
+    updatedWorkouts.splice(ind, 1);
+    setWorkouts(updatedWorkouts);
   }
 
   function handleChange(e, ind) {
@@ -58,12 +64,8 @@ export default function index(): JSX.Element {
     <Layout>
       <h1 className="text-4xl">Create workout</h1>
       <p className="text-lg my-2">Add your workout below</p>
-      <Link className="my-2" href="/workouts">
-        <Button>Back to workouts</Button>
-      </Link>
-
-      <form method="POST" action="/api/workouts" className="lg:flex">
-        <div className="lg:mx-4">
+      <form method="POST" action="/api/workouts">
+        <div className="">
           <Input
             label="Workout Name"
             type="text"
@@ -75,12 +77,34 @@ export default function index(): JSX.Element {
           />
         </div>
         <br />
+        <div className="mb-10 items-start">
+          <Button
+            onClick={handleAddExercise}
+            styling="bg-green-600 hover:bg-green-700"
+          >
+            Add
+          </Button>
+          <Button
+            onClick={handleRemoveExercise}
+            styling="bg-red-600 hover:bg-red-700"
+          >
+            Remove
+          </Button>
+
+          <Button type="submit">Submit</Button>
+        </div>
 
         {workouts.map((workout, ind) => {
           return (
-            <div key={ind} className="lg:mx-4">
+            <div key={ind} className="">
+              {ind === 0 && (
+                <p className="text-lg text-blue-400">
+                  {workouts.length}{" "}
+                  {workouts.length === 1 ? "Exercise" : "Exercises"}
+                </p>
+              )}
               <Input
-                label={`Exercise ${ind + 1}`}
+                label={`Exercise`}
                 type="text"
                 value={workout.name}
                 id={"name"}
@@ -138,7 +162,7 @@ export default function index(): JSX.Element {
                 placeholder="e.g. 30"
                 onChange={(e: any) => handleChange(e, ind)}
                 min={0}
-                max={1000}
+                max={10000}
                 mb="mb-10"
               />
 
@@ -162,11 +186,7 @@ export default function index(): JSX.Element {
         <input type="hidden" value={userEmail} name="email" />
         <input type="hidden" value={JSON.stringify(workouts)} name="workout" />
         {/* Buttons that add excercise and submit */}
-        <div className="mb-4 my-4">
-          <Button onClick={handleAddExercise}>Add exercise</Button>
 
-          <Button type="submit">Submit</Button>
-        </div>
         {/* <button type="button" onClick={handleAddExercise}>
           Add exercise
         </button> */}

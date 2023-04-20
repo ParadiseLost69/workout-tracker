@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/auth/[...nextauth].js",
-    "components/accessToken.tsx"
+    "components/accessToken.tsx",
+    "components/UI/Button.jsx"
   ],
   "exclude": ["node_modules"]
 }
